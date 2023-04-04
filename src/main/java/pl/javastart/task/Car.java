@@ -2,11 +2,20 @@ package pl.javastart.task;
 
 public class Car extends Vehicle {
     private boolean isAirConditioned;
+    private boolean isAirConditionRangeChangeNeeded = true;
 
     public Car(String name, int fuelCapacity, double fuelUsage, boolean isAirConditioned) {
         super(name, fuelCapacity, fuelUsage);
         this.isAirConditioned = isAirConditioned;
         setFuelUsage(calculateFuelUsage());
+    }
+
+    public boolean isAirConditionRangeChangeNeeded() {
+        return isAirConditionRangeChangeNeeded;
+    }
+
+    public void setAirConditionRangeChangeNeeded(boolean airConditionRangeChangeNeeded) {
+        isAirConditionRangeChangeNeeded = airConditionRangeChangeNeeded;
     }
 
     public boolean isAirConditioned() {
@@ -19,8 +28,11 @@ public class Car extends Vehicle {
     }
 
     public double calculateFuelUsage() {
-        if (isAirConditioned) {
-            return getFuelUsage() + 0.8;
+        if (isAirConditionRangeChangeNeeded) {
+            if (isAirConditioned) {
+                isAirConditionRangeChangeNeeded = false;
+                return getFuelUsage() + 0.8;
+            }
         }
         return getFuelUsage();
     }

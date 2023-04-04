@@ -2,11 +2,20 @@ package pl.javastart.task;
 
 public class Truck extends Car {
     private int loadWeight;
+    private boolean isLoadweightRangeChangeNeeded = true;
 
     public Truck(String name, int fuelCapacity, double fuelUsage, boolean isAirConditioned, int loadWeight) {
         super(name, fuelCapacity, fuelUsage, isAirConditioned);
         this.loadWeight = loadWeight;
         setFuelUsage(calculateFuelUsage());
+    }
+
+    public boolean isLoadweightRangeChangeNeeded() {
+        return isLoadweightRangeChangeNeeded;
+    }
+
+    public void setLoadweightRangeChangeNeeded(boolean loadweightRangeChangeNeeded) {
+        isLoadweightRangeChangeNeeded = loadweightRangeChangeNeeded;
     }
 
     public int getLoadWeight() {
@@ -15,16 +24,22 @@ public class Truck extends Car {
 
     public void setLoadWeight(int loadWeight) {
         this.loadWeight = loadWeight;
+        setFuelUsage(calculateFuelUsage());
     }
 
     @Override
     public double calculateFuelUsage() {
-        super.calculateFuelUsage();
         double fuelUsage = getFuelUsage();
-        if (isAirConditioned()) {
-            fuelUsage += 0.8;
+        if (isAirConditionRangeChangeNeeded()) {
+            if (isAirConditioned()) {
+                fuelUsage += 1.6;
+                setAirConditionRangeChangeNeeded(false);
+            }
         }
-        fuelUsage += (0.005 * loadWeight);
+        if (isLoadweightRangeChangeNeeded) {
+            fuelUsage += (0.005 * loadWeight);
+            setLoadweightRangeChangeNeeded(false);
+        }
         return fuelUsage;
     }
 
