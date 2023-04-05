@@ -1,14 +1,14 @@
 package pl.javastart.task;
 
 public class Vehicle {
-    private String name;
-    private int fuelCapacity;
-    private double fuelUsage;
+    protected String name;
+    protected int fuelCapacity;
+    protected double baseFuelUsage;
 
     public Vehicle(String name, int fuelCapacity, double fuelUsage) {
         this.name = name;
         this.fuelCapacity = fuelCapacity;
-        this.fuelUsage = fuelUsage;
+        this.baseFuelUsage = fuelUsage;
     }
 
     public String getName() {
@@ -27,11 +27,11 @@ public class Vehicle {
         this.fuelCapacity = fuelCapacity;
     }
 
-    public double getFuelUsage() {
-        return fuelUsage;
+    public double getBaseFuelUsage() {
+        return baseFuelUsage;
     }
 
-    public void setFuelUsage(double fuelUsage) {
-        this.fuelUsage = fuelUsage;
+    public void setBaseFuelUsage(double baseFuelUsage) {
+        this.baseFuelUsage = baseFuelUsage;
     }
 }
